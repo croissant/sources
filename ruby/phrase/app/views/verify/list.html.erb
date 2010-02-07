@@ -1,0 +1,38 @@
+<% @rows.each do |row| %>
+<div class="verify-form">
+  <div><%=row['detail']%><span class="result" id="result<%=row['id']%>" /></div>
+  <div class="phrase" id="phrase<%=row['id']%>" style="display:none;">
+    <%=row['phrase']%>
+  </div>
+  <div><textarea id="ans<%=row['id']%>" cols="32" rows="4"></textarea></div>
+  <div id="button<%=row.id%>">
+    <input type="button" value="verify" onclick="javascript:verify(<%= row['id'] %>);" />
+  </div>
+</div>
+<% end %>
+<script type="text/javascript">
+//<!--
+function verify(id) {
+    var ans_id    = "ans" + id;
+    var phrase_id = "phrase" + id;
+    var result_id = "result" + id;
+    var button_id = "button" + id;
+
+    var ans       = document.getElementById(ans_id);
+    var phrase    = document.getElementById(phrase_id);
+    var button    = document.getElementById(button_id);
+    var result    = document.getElementById(result_id);
+    var ajax   = new Ajax.Request('/verify/verify', {
+	    method       : 'post',
+	    asynchronous : false,
+	    parameters   : {'ans': ans.value, 'id': id},
+	    onSuccess    : function(request) {
+		result.innerHTML = " => " + request.responseText;
+	    }
+	});
+
+    button.style.display = "none";
+    phrase.style.display = "block";
+}
+// -->
+</script>
