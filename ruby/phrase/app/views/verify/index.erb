@@ -1,0 +1,15 @@
+<div>
+  <div>No type</div>
+  <%= link_to "order", :action => 'list', :mode => 'order' %>
+  <%= link_to "reverse", :action => 'list', :mode => 'reverse' %>
+  <%= link_to "random", :action => 'list', :mode => 'random' %>
+</div>
+
+<% Type.find(:all).each do |t| %>
+<div>
+  <div><%= t.name %></div>
+  <%= link_to "order", :action => 'list', :mode => 'order', :type => t.id %>
+  <%= link_to "reverse", :action => 'list', :mode => 'reverse', :type => t.id %>
+  <%= link_to "random", :action => 'list', :mode => 'random', :type => t.id %>
+</div>
+<% end %>
