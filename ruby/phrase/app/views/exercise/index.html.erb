@@ -1,0 +1,9 @@
+<% Type.find(:all).each do |type| %>
+<div>
+  <div><%= type.name %></div>
+  <div>
+    <%= link_to 'order', :action => :order, :type => type.id %>
+    <%= link_to 'reverse', :action => :reverse, :type => type.id %>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,10 @@
+<% @rows.each do |row| %>
+<div>
+  <div class="phrase"><%= row.id %>: <%=h row.phrase %></div>
+  <div class="detail"><%=h row.detail %></div>
+  <textarea rows="4" cols="64"></textarea>
+</div>
+<% end %>
+
+<% if nil != @ppage %><%= link_to '前', :page => @ppage, :type => params[:type] %><% end %>
+<% if nil != @npage %><%= link_to '次', :page => @npage, :type => params[:type] %><% end %>

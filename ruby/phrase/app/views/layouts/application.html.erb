@@ -6,6 +6,7 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= controller.action_name %></title>
   <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag params[:controller] %>
   <%= javascript_include_tag 'prototype' %>
 </head>
 <body>
@@ -16,6 +17,7 @@
 
 
 <div class="footer">
+  <%= link_to "練習", :controller => :exercise, :action => :index %>
   <%= link_to "例文管理", :controller => 'phrases', :action => 'index' %>
   <%= link_to "タイプ管理", :controller => 'types', :action => 'index' %>
   <%= link_to "例文表示", :controller => 'verify', :action => 'index' %>
