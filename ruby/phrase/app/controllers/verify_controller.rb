@@ -1,6 +1,6 @@
 require 'set'
 class VerifyController < ApplicationController
-  ROWS = 10
+  ROWS = 5
 
   def index
   end
@@ -29,15 +29,22 @@ class VerifyController < ApplicationController
   end
 
   def order_result(order)
-    page       = (params['page'] != nil && params['page'] > 0) ? params['page'] : 1;
-    type       = (params['type'] != nil) ? params['type'] : nil
+    page       = (params['page'] != nil && params['page'].to_i > 0) ? params['page'].to_i : 1;
+    type       = (params['type'] != nil) ? params['type'].to_i : nil
     start_num  = ROWS * (page - 1)
     conditions = (type != nil) ? ["type_id = ? ", type] : nil
-    Phrase.find(:all,
-                :conditions => conditions,
-                :offset     => start_num,
-                :limit      => ROWS,
-                :order      => order)
+    result = Phrase.find(:all,
+                         :conditions => conditions,
+                         :offset     => start_num,
+                         :limit      => ROWS + 1,
+                         :order      => order)
+
+    if result.length > ROWS
+      @next = page + 1
+      result.pop
+    end
+
+    return result
   end
 
   def random

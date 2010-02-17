@@ -1,7 +1,13 @@
+body {
+  background-color: midnightblue;
+  color: snow;
+}
 div.phrase {
   color: red;
 }
 
 span.result {
-  color: blue;
+  color: lightblue;
 }
+
+a:link, a:visited { color: cyan; }

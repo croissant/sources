@@ -1,15 +1,25 @@
 <% @rows.each do |row| %>
 <div class="verify-form">
-  <div><%=row['detail']%><span class="result" id="result<%=row['id']%>" /></div>
+  <div class="detail"><%=row['detail']%><span class="result" id="result<%=row['id']%>"></span></div>
   <div class="phrase" id="phrase<%=row['id']%>" style="display:none;">
     <%=row['phrase']%>
   </div>
-  <div><textarea id="ans<%=row['id']%>" cols="32" rows="4"></textarea></div>
+  <div>
+    <% Result.find(:all, :conditions => ['phrase_id = ?', row.id]).each do |r| %>
+    <% if 't' == r.result %>o<% else %>x<% end %>
+    <% end %>
+  </div>
+  <div><textarea id="ans<%=row['id']%>" cols="64" rows="4"></textarea></div>
   <div id="button<%=row.id%>">
     <input type="button" value="verify" onclick="javascript:verify(<%= row['id'] %>);" />
   </div>
 </div>
 <% end %>
+<div><input value="clear" type="button" onclick="javascript:clear_all();" /></div>
+<% if nil != @next %>
+<%= link_to 'next', :page => @next, :mode => params[:mode], :type => params[:type] %>
+<% end %>
+<div>
 <script type="text/javascript">
 //<!--
 function verify(id) {
@@ -31,8 +41,23 @@ function verify(id) {
 	    }
 	});
 
+    var next = "ans" + (id + 1);
+
+    if (document.getElementById(next)) {
+        document.getElementById(next).focus();
+    }
+
     button.style.display = "none";
     phrase.style.display = "block";
+}
+
+function clear_all()
+{
+    var elems = document.getElementsByTagName('textarea');
+    for (var num = 0; num < elems.length; num++) {
+        var elem = elems[num];
+	elem.value = '';
+    }
 }
 // -->
 </script>

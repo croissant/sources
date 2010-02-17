@@ -1,5 +1,5 @@
 class ExerciseController < ApplicationController
-  ROWS = 10
+  ROWS = 5
   def index
   end
 
