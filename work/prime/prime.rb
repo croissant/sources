@@ -10,6 +10,6 @@ prime_list = -> (num) {
     list = list.select { |v| (v % current) > 0 }
   end
   result + list
-};
+}
 
 printf("%d\n", prime_list.call(limit).length)
